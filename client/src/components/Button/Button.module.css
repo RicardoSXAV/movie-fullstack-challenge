@@ -1,0 +1,28 @@
+.buttonContainer {
+  padding: 0.8rem 2rem;
+
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+
+  border-radius: 20rem;
+  background: linear-gradient(
+    90deg,
+    rgba(204, 0, 0, 1) 0%,
+    rgba(255, 95, 47, 1) 100%
+  );
+  box-shadow: 0px 7px 23px 7px rgba(0, 0, 0, 0.41);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonContainer:hover {
+  cursor: pointer;
+  filter: brightness(1.1);
+}
+
+.buttonContainer:active {
+  filter: brightness(0.9);
+  box-shadow: none;
+  transition: all 0.1s ease-in-out;
+}
