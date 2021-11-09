@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+
+  width: 20rem;
+  height: 28rem;
+
+  border-radius: 40px;
+  background-color: #3a3b94;
+  box-shadow: 0px 7px 23px 7px rgba(0, 0, 0, 0.41);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0.5rem 1rem;
+}
+
+.image {
+  height: 18rem;
+  width: 20rem;
+  object-fit: cover;
+
+  border-radius: 40px;
+}
+
+.tag {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+
+  background-color: #ff5f2f;
+  border-radius: 10px;
+}
