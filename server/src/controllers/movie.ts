@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import axios from "axios";
 
+import { Movie } from "../models/Movie";
+
 const imdbApiHeaders = {
   "x-rapidapi-host": "imdb8.p.rapidapi.com",
   "x-rapidapi-key": "055adf457dmshadbdc1d71d699c7p169513jsn42eb9bf611e2",
@@ -48,6 +50,31 @@ const list = async (req: Request, res: Response) => {
   });
 };
 
-const addToCatalog = async () => {};
+const getCatalog = async (req: Request, res: Response) => {
+  const catalog = await Movie.find({});
 
-export default { list, addToCatalog };
+  console.log(catalog);
+
+  return res.status(200).json({ catalog });
+};
+
+const addToCatalog = async (req: Request, res: Response) => {
+  const { movie } = req.body;
+
+  console.log(movie);
+
+  const movieToAdd = await Movie.findOne({ id: movie.id });
+
+  if (movieToAdd) {
+    return res
+      .status(401)
+      .json({ error: true, message: "Esse filme já está no seu católogo!" });
+  }
+
+  const newMovie = new Movie(movie);
+  await newMovie.save();
+
+  res.status(200).json({ error: false, movie: newMovie });
+};
+
+export default { list, getCatalog, addToCatalog };

@@ -8,7 +8,7 @@ import { useApp } from "../../contexts/AppContext";
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  const { currentUser } = useApp();
+  const { currentUser, logoutUser, getCatalog, catalogMovies } = useApp();
 
   return (
     <div className={styles.container}>
@@ -18,10 +18,18 @@ const Navbar: React.FC = () => {
       {currentUser ? (
         <div className={styles.adminContainer}>
           <h1>{currentUser}</h1>
-          <Button green onClick={() => router.push("/catalog")}>
+          <Button
+            green
+            onClick={() => {
+              if (catalogMovies.length === 0) {
+                getCatalog();
+              }
+              router.push("/catalog");
+            }}
+          >
             Catálogo
           </Button>
-          <Button>Sair</Button>
+          <Button onClick={logoutUser}>Sair</Button>
         </div>
       ) : (
         <Button id={styles.loginButton} onClick={() => router.push("/login")}>

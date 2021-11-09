@@ -48,6 +48,7 @@ const Home: NextPage = () => {
               imageUrl={movie.image.url}
               duration={movie.runningTimeInMinutes}
               id={movie.id}
+              addOption
             />
           ))
         )}

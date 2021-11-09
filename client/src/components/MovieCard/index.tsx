@@ -8,6 +8,7 @@ type MovieCardProps = {
   imageUrl: string;
   duration: number;
   id: string;
+  addOption?: boolean;
 };
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -15,20 +16,21 @@ const MovieCard: React.FC<MovieCardProps> = ({
   imageUrl,
   duration,
   id,
+  addOption,
 }) => {
   const { currentUser, addMovie } = useApp();
 
   return (
-    <div className={styles.container}>
+    <button className={styles.container}>
       <img src={imageUrl} className={styles.image} />
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.tag}>{duration} min</div>
-      {currentUser && (
+      {currentUser && addOption && (
         <button className={styles.addButton} onClick={() => addMovie(id)}>
           <FaPlus />
         </button>
       )}
-    </div>
+    </button>
   );
 };
 

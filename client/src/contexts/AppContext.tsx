@@ -15,7 +15,10 @@ type AppContextData = {
   getMovies: Function;
   currentUser: string;
   loginUser: (userInfo: UserObject) => void;
+  logoutUser: () => void;
   addMovie: (id: string) => void;
+  catalogMovies: Array<any>;
+  getCatalog: () => void;
 };
 
 export const AppContext = createContext({} as AppContextData);
@@ -26,10 +29,12 @@ type AppContextProviderProps = {
 
 export function AppContextProvider({ children }: AppContextProviderProps) {
   const [movies, setMovies] = useLocalStorage([], "movies");
+  const [catalogMovies, setCatalogMovies] = useLocalStorage(
+    [],
+    "catalogMovies"
+  );
   const [token, setToken] = useLocalStorage("", "token");
   const [currentUser, setCurrentUser] = useLocalStorage("", "user");
-
-  const router = useRouter();
 
   async function getMovies() {
     await axios.get(apiUrl + "/movie").then((response) => {
@@ -38,10 +43,34 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
     });
   }
 
+  async function getCatalog() {
+    await axios
+      .get(apiUrl + "/movie/catalog", {
+        params: {
+          token,
+        },
+      })
+      .then((response) => setCatalogMovies(response.data.catalog));
+  }
+
   async function addMovie(id: string) {
     const selectedMovie = movies.find((movie: any) => movie.id === id);
 
-    console.log(selectedMovie);
+    await axios
+      .post(
+        apiUrl + "/movie/catalog",
+        {
+          movie: selectedMovie,
+        },
+        {
+          params: {
+            token,
+          },
+        }
+      )
+      .then((response) =>
+        setCatalogMovies([...catalogMovies, response.data.movie])
+      );
   }
 
   async function loginUser(userInfo: UserObject) {
@@ -50,14 +79,28 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
       .then((response) => {
         setToken(response.data.token);
         setCurrentUser(response.data.username);
-        router.push("/");
+        console.log("token", token);
       })
       .catch((error) => console.log(error.response));
   }
 
+  function logoutUser() {
+    setCurrentUser("");
+    setToken("");
+  }
+
   return (
     <AppContext.Provider
-      value={{ movies, getMovies, currentUser, loginUser, addMovie }}
+      value={{
+        movies,
+        getMovies,
+        currentUser,
+        loginUser,
+        addMovie,
+        logoutUser,
+        catalogMovies,
+        getCatalog,
+      }}
     >
       {children}
     </AppContext.Provider>

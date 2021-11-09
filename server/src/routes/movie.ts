@@ -5,6 +5,7 @@ import { adminAuth } from "../middlewares/adminAuth";
 import movie from "../controllers/movie";
 
 router.get("/", movie.list);
-router.post("/", adminAuth, movie.addToCatalog);
+router.get("/catalog", adminAuth, movie.getCatalog);
+router.post("/catalog", adminAuth, movie.addToCatalog);
 
 export default router;

@@ -1,7 +1,8 @@
-import styles from "./LoginForm.module.css";
-
-import Button from "../Button";
 import { useState } from "react";
+import { useRouter } from "next/dist/client/router";
+
+import styles from "./LoginForm.module.css";
+import Button from "../Button";
 
 import { useApp } from "../../contexts/AppContext";
 
@@ -10,9 +11,11 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
 
   const { loginUser } = useApp();
+  const router = useRouter();
 
   function handleSubmit() {
     loginUser({ username, password });
+    router.push("/");
   }
 
   return (
