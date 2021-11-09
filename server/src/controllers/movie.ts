@@ -48,4 +48,6 @@ const list = async (req: Request, res: Response) => {
   });
 };
 
-export default { list };
+const addToCatalog = async () => {};
+
+export default { list, addToCatalog };

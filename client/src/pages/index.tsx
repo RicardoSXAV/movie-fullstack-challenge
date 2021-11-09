@@ -13,18 +13,14 @@ import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
 import LoadingCard from "../components/LoadingCard";
 
+import { useApp } from "../contexts/AppContext";
+
 const Home: NextPage = () => {
-  const [movies, setMovies] = useLocalStorage([], "movies");
+  const { movies, getMovies } = useApp();
 
   useEffect(() => {
     if (movies.length === 0) {
-      async function getData() {
-        await axios.get(apiUrl + "/movie").then((response) => {
-          setMovies(response.data.movies);
-          console.log(response.data);
-        });
-      }
-      getData();
+      getMovies();
     }
 
     console.log(movies);
@@ -51,6 +47,7 @@ const Home: NextPage = () => {
               title={movie.title}
               imageUrl={movie.image.url}
               duration={movie.runningTimeInMinutes}
+              id={movie.id}
             />
           ))
         )}
