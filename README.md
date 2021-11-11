@@ -26,3 +26,8 @@ npm run dev
 yarn dev
 ```
 * O client vai rodar em ```http://localhost:3000``` e o server em ```http://localhost:5000```.
+
+## Para a página de login
+
+* Usuário: admin
+* Senha: adm123
