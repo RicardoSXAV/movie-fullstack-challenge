@@ -9,18 +9,24 @@ import { useApp } from "../../contexts/AppContext";
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
-  const { loginUser } = useApp();
-  const router = useRouter();
+  const { loginUser, currentUser } = useApp();
 
-  function handleSubmit() {
-    loginUser({ username, password });
-    router.push("/");
+  async function handleSubmit(event: any) {
+    event.preventDefault();
+    await loginUser({ username, password });
+
+    if (!currentUser) {
+      setLoginError(true);
+    }
   }
 
   return (
     <form className={styles.box}>
       <h1 className={styles.title}>Entrar</h1>
+
+      {loginError && <p>Usuário ou senha incorretos.</p>}
 
       <input
         type="text"

@@ -1,10 +1,14 @@
 import { NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const adminAuth = (req: any, res: any, next: NextFunction) => {
-  const userToken = req.query.token;
+export const adminAuth = async (req: any, res: any, next: NextFunction) => {
+  try {
+    const userToken = req.query.token;
 
-  jwt.verify(userToken, "JWT_SECRET");
+    await jwt.verify(userToken, "JWT_SECRET");
 
-  next();
+    next();
+  } catch (error) {
+    console.log(error);
+  }
 };

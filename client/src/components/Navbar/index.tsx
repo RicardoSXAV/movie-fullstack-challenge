@@ -1,12 +1,17 @@
-import styles from "./Navbar.module.css";
 import Image from "next/image";
 import { useRouter } from "next/dist/client/router";
+import { AiFillHome } from "react-icons/ai";
 
+import styles from "./Navbar.module.css";
 import Button from "../Button";
 import popcorn from "../../assets/popcorn.png";
 import { useApp } from "../../contexts/AppContext";
 
-const Navbar: React.FC = () => {
+type NavbarProps = {
+  home?: boolean;
+};
+
+const Navbar: React.FC<NavbarProps> = ({ home }) => {
   const router = useRouter();
   const { currentUser, logoutUser, getCatalog, catalogMovies } = useApp();
 
@@ -18,17 +23,23 @@ const Navbar: React.FC = () => {
       {currentUser ? (
         <div className={styles.adminContainer}>
           <h1>{currentUser}</h1>
-          <Button
-            green
-            onClick={() => {
-              if (catalogMovies.length === 0) {
-                getCatalog();
-              }
-              router.push("/catalog");
-            }}
-          >
-            Catálogo
-          </Button>
+          {home ? (
+            <Button onClick={() => router.push("/")} id={styles.homeButton}>
+              <AiFillHome />
+            </Button>
+          ) : (
+            <Button
+              green
+              onClick={() => {
+                if (catalogMovies.length === 0) {
+                  getCatalog();
+                }
+                router.push("/catalog");
+              }}
+            >
+              Catálogo
+            </Button>
+          )}
           <Button onClick={logoutUser}>Sair</Button>
         </div>
       ) : (

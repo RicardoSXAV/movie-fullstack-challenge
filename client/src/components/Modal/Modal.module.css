@@ -1,0 +1,72 @@
+.box {
+  position: fixed;
+  top: 12%;
+  left: 20%;
+  z-index: 2;
+
+  width: 60%;
+  height: 30rem;
+  padding: 3rem 0 4rem 3rem;
+
+  background-color: #1c1d46;
+  border-radius: 40px;
+  box-shadow: 0px 7px 23px 7px rgba(0, 0, 0, 0.41);
+}
+
+.overflow {
+  height: 103%;
+  padding-right: 4rem;
+
+  overflow-y: auto;
+}
+
+.overflow img {
+  float: left;
+  margin: 0.5rem 2rem;
+}
+
+.overflow::-webkit-scrollbar {
+  width: 4px;
+  margin-top: 20px;
+}
+
+.overflow::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.overflow::-webkit-scrollbar-track {
+  background-color: black;
+  border-radius: 4px;
+}
+
+.image {
+  width: 12rem;
+  height: auto;
+
+  border-radius: 20px;
+}
+
+#closeButton {
+  position: absolute;
+  top: 5%;
+  left: 91%;
+
+  font-size: 1.5rem;
+  padding: 0.6rem 0.8rem 0.2rem 0.8rem;
+
+  color: white;
+  border-radius: 50%;
+}
+
+.blackground {
+  position: fixed;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: black;
+  opacity: 0.5;
+  z-index: 1;
+}

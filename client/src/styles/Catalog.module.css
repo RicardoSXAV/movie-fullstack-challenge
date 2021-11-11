@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  margin-top: 3rem;
+  margin-left: 10rem;
+  padding-bottom: 3rem;
+}
+
+.title {
+  width: fit-content;
+  margin: auto;
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+
+  background-color: rgba(0, 125, 0, 1);
+  border-radius: 20px;
+}
